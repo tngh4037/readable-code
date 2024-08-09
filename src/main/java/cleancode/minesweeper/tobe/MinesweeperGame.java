@@ -38,26 +38,33 @@ public class MinesweeperGame {
             String cellInput = getCellInputFromUser(scanner);
             String userActionInput = getUserActionInputFromUser(scanner);
 
-            int selectedColIndex = getSelectedColIndex(cellInput);
-            int selectedRowIndex = getSelectedRowIndex(cellInput);
-
-            if (doesUserChooseToPlantFlag(userActionInput)) { // 깃발 꽂기를 선택한 경우
-                BOARD[selectedRowIndex][selectedColIndex] = FLAG_SIGN;
-                checkIfGameIsOver();
-            } else if (doesUserChooseToOpenCell(userActionInput)) { // 셀 열기를 선택한 경우
-                if (isLandMineCell(selectedRowIndex, selectedColIndex)) { // 지뢰셀을 선택했다면
-                    BOARD[selectedRowIndex][selectedColIndex] = LAND_MINE_SIGN; // 지뢰 표시를 보드에 넣고
-                    changeGameStatusToLose(); // 게임의 상태를 진것으로 변경
-                    continue;
-                } else {
-                    open(selectedRowIndex, selectedColIndex); // 지뢰셀이 아니라면, 셀을 연다.
-                }
-
-                checkIfGameIsOver();
-            } else {
-                System.out.println("잘못된 번호를 선택하셨습니다.");
-            }
+            actOnCell(cellInput, userActionInput);
         }
+    }
+
+    private static void actOnCell(String cellInput, String userActionInput) {
+        int selectedColIndex = getSelectedColIndex(cellInput);
+        int selectedRowIndex = getSelectedRowIndex(cellInput);
+
+        if (doesUserChooseToPlantFlag(userActionInput)) { // 깃발 꽂기를 선택한 경우
+            BOARD[selectedRowIndex][selectedColIndex] = FLAG_SIGN;
+            checkIfGameIsOver();
+            return;
+        }
+
+        if (doesUserChooseToOpenCell(userActionInput)) { // 셀 열기를 선택한 경우
+            if (isLandMineCell(selectedRowIndex, selectedColIndex)) { // 지뢰셀을 선택했다면
+                BOARD[selectedRowIndex][selectedColIndex] = LAND_MINE_SIGN; // 지뢰 표시를 보드에 넣고
+                changeGameStatusToLose(); // 게임의 상태를 진것으로 변경
+                return;
+            }
+
+            open(selectedRowIndex, selectedColIndex); // 지뢰셀이 아니라면, 셀을 연다.
+            checkIfGameIsOver();
+            return;
+        }
+
+        System.out.println("잘못된 번호를 선택하셨습니다.");
     }
 
     private static void changeGameStatusToLose() {
