@@ -38,7 +38,6 @@ public class MinesweeperGame {
 
             String cellInput = getCellInputFromUser();
             String userActionInput = getUserActionInputFromUser();
-
             actOnCell(cellInput, userActionInput);
         }
     }
@@ -179,11 +178,13 @@ public class MinesweeperGame {
                 BOARD[row][col] = "□";
             }
         }
+
         for (int i = 0; i < LAND_MINE_COUNT; i++) { // 추측2: 지뢰 세팅
             int col = new Random().nextInt(BOARD_COL_SIZE);
             int row = new Random().nextInt(BOARD_ROW_SIZE);
             LAND_MINES[row][col] = true;
         }
+
         for (int row = 0; row < BOARD_ROW_SIZE; row++) {
             for (int col = 0; col < BOARD_COL_SIZE; col++) {
                 int count = 0;
