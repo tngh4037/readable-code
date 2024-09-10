@@ -21,10 +21,6 @@ public class CellState {
         isOpened = true;
     }
 
-    public boolean isChecked() {
-        return isFlagged || isOpened; // 닫혀있는지 깃발이 꽂혀있거나 or 진짜 열었거나
-    }
-
     public boolean isOpened() {
         return isOpened;
     }
