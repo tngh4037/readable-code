@@ -1,7 +1,7 @@
 package cleancode.studycafe.tobeme.io;
 
 import cleancode.studycafe.tobeme.model.StudyCafePass;
-import cleancode.studycafe.tobeme.model.StudyCafePassType;
+import cleancode.studycafe.tobeme.define.StudyCafePassType;
 
 import java.util.List;
 import java.util.Scanner;

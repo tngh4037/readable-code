@@ -1,6 +1,8 @@
-package cleancode.studycafe.tobeme.model;
+package cleancode.studycafe.tobeme.define;
 
 import cleancode.studycafe.tobeme.exception.AppException;
+import cleancode.studycafe.tobeme.io.InputHandler;
+import cleancode.studycafe.tobeme.io.OutputHandler;
 
 import java.util.Arrays;
 
@@ -13,6 +15,9 @@ public enum StudyCafePassType {
     private final String code;
     private final String description;
 
+    private static final InputHandler inputHandler = new InputHandler();
+    private static final OutputHandler outputHandler = new OutputHandler();
+
     StudyCafePassType(String code, String description) {
         this.code = code;
         this.description = description;
@@ -23,5 +28,9 @@ public enum StudyCafePassType {
             .filter(v -> v.code.equals(code))
             .findAny()
             .orElseThrow(() -> new AppException("잘못된 입력입니다."));
+    }
+
+    public boolean isLockerAvailable() {
+        return this == FIXED;
     }
 }

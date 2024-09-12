@@ -1,5 +1,7 @@
 package cleancode.studycafe.tobeme.model;
 
+import cleancode.studycafe.tobeme.define.StudyCafePassType;
+
 public class StudyCafeLockerPass {
 
     private final StudyCafePassType passType;
