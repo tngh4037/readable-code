@@ -8,11 +8,11 @@ import java.util.List;
 
 public class StudyCafePassTypeHandler {
 
-    private static final InputHandler inputHandler = new InputHandler();
-    private static final OutputHandler outputHandler = new OutputHandler();
+    private final InputHandler inputHandler = new InputHandler();
+    private final OutputHandler outputHandler = new OutputHandler();
+    private final StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
 
     public void run(StudyCafePassType studyCafePassType) {
-        StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
         List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePassesBy(studyCafePassType);
         outputHandler.showPassListForSelection(studyCafePasses);
         StudyCafePass selectedPass = inputHandler.getSelectPass(studyCafePasses);
@@ -26,16 +26,14 @@ public class StudyCafePassTypeHandler {
             return null;
         }
 
-        StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
         StudyCafeLockerPass lockerPass = studyCafeFileHandler.readLockerPassesBy(studyCafePass);
-        boolean lockerSelection = false;
         if (lockerPass != null) {
             outputHandler.askLockerPass(lockerPass);
-            lockerSelection = inputHandler.getLockerSelection();
-        }
 
-        if (lockerSelection) {
-            return lockerPass;
+            boolean lockerSelection = inputHandler.getLockerSelection();
+            if (lockerSelection) {
+                return lockerPass;
+            }
         }
 
         return null;
