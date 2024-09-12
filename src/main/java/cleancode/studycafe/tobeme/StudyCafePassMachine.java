@@ -4,13 +4,13 @@ import cleancode.studycafe.tobeme.exception.AppException;
 import cleancode.studycafe.tobeme.io.InputHandler;
 import cleancode.studycafe.tobeme.io.OutputHandler;
 import cleancode.studycafe.tobeme.define.StudyCafePassType;
-import cleancode.studycafe.tobeme.io.StudyCafeTypeHandler;
+import cleancode.studycafe.tobeme.io.StudyCafePassTypeHandler;
 
 public class StudyCafePassMachine {
 
     private final InputHandler inputHandler = new InputHandler();
     private final OutputHandler outputHandler = new OutputHandler();
-    private final StudyCafeTypeHandler studyCafeTypeHandler = new StudyCafeTypeHandler();
+    private final StudyCafePassTypeHandler studyCafePassTypeHandler = new StudyCafePassTypeHandler();
 
     public void run() {
         try {
@@ -19,7 +19,7 @@ public class StudyCafePassMachine {
             outputHandler.askPassTypeSelection();
 
             StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
-            studyCafeTypeHandler.run(studyCafePassType);
+            studyCafePassTypeHandler.run(studyCafePassType);
         } catch (AppException e) {
             outputHandler.showSimpleMessage(e.getMessage());
         } catch (Exception e) {

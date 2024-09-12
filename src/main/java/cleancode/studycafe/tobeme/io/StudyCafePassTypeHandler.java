@@ -6,7 +6,7 @@ import cleancode.studycafe.tobeme.model.StudyCafePass;
 
 import java.util.List;
 
-public class StudyCafeTypeHandler {
+public class StudyCafePassTypeHandler {
 
     private static final InputHandler inputHandler = new InputHandler();
     private static final OutputHandler outputHandler = new OutputHandler();
