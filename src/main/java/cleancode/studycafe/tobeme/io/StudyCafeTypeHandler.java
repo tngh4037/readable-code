@@ -11,22 +11,23 @@ public class StudyCafeTypeHandler {
     private static final InputHandler inputHandler = new InputHandler();
     private static final OutputHandler outputHandler = new OutputHandler();
 
-    public void run(StudyCafePassType type) {
+    public void run(StudyCafePassType studyCafePassType) {
         StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
-        List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePassesBy(type);
+        List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePassesBy(studyCafePassType);
         outputHandler.showPassListForSelection(studyCafePasses);
         StudyCafePass selectedPass = inputHandler.getSelectPass(studyCafePasses);
 
-        StudyCafeLockerPass lockerPass = null;
-        if (type.isLockerAvailable()) {
-            lockerPass = runForLocker(studyCafeFileHandler, selectedPass);
-        }
-
+        StudyCafeLockerPass lockerPass = getLockerPass(studyCafePassType, selectedPass);
         outputHandler.showPassOrderSummary(selectedPass, lockerPass);
     }
 
-    private StudyCafeLockerPass runForLocker(StudyCafeFileHandler studyCafeFileHandler, StudyCafePass selectedPass) {
-        StudyCafeLockerPass lockerPass = studyCafeFileHandler.readLockerPassesBy(selectedPass);
+    private StudyCafeLockerPass getLockerPass(StudyCafePassType studyCafePassType, StudyCafePass studyCafePass) {
+        if (!studyCafePassType.isLockerAvailable()) {
+            return null;
+        }
+
+        StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
+        StudyCafeLockerPass lockerPass = studyCafeFileHandler.readLockerPassesBy(studyCafePass);
         boolean lockerSelection = false;
         if (lockerPass != null) {
             outputHandler.askLockerPass(lockerPass);
